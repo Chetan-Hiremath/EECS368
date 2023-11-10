@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html> 
+  <head>
+    <meta charset= "utf-8">
+  </head> 
+<style type="text/css"> 
+  tab-panel > button.selected
+  {
+    font-style : "Times New Roman"; 
+    color: #f52121;
+  }
+  tab-panel > div[tab].hidden 
+  {
+    display: none;
+  }
+</style>
+<body>
+  <h1>Hiremath's Tab Page</h1>
+  <tab-panel>
+    <div tab="A">Tab A</div> 
+    <div tab="B">Tab B</div>
+    <div tab="C">Tab C</div>
+  </tab-panel> 
+  <script>
+    let activeTab; //This line tracks the tab that is currently selected by the user.
+    let currentTab; //This line tracks the current body of tab that is currently displayed by the user.
+    function asTabs (node) //This line defines the as Tabs function.
+    {
+      let tabsLength = node.children.length; //This line shows that the length of the tabs is equal to the length of the children nodes.
+      for (let i = 0; i < tabsLength; i++) //This line defines the for loop that runs from 0 to the length of the tabs.
+      {
+        let button = document.createElement("button"); //This line shows that the button is created. 
+        button.textContent = document.querySelectorAll("div")[i].getAttribute("tab"); //This line returns the Node list with the mathcing elements.
+        node.querySelectorAll("div")[i].classList.add("hidden"); //This line hides the body of the tabs.
+        button.addEventListener("click", switchTab); //This line allows the user to click and switch the tabs by the button.
+        node.insertBefore(button, document.querySelector("div")); //This line shows that it inserts a node before the referenced node.
+      }
+      activeTab = document.querySelector("button"); //This line shows the button of the tab.
+      activeTab.classList.add("selected"); //This line allows the user to select the tab.
+      currentTab = document.querySelector("div"); //This line shows that the tabs are divided if they are not selected.
+      currentTab.classList.toggle("hidden"); //This line hides the unselected tabs.
+    }   
+    asTabs(document.querySelector("tab-panel")); //This line shows the properties of the tab panel.
+    function switchTab(event) //This line defines the switchTab function. 
+    {
+      activeTab.classList.remove("selected"); //This line shows that the active tab is removed.
+      activeTab = event.target; //This line shows tha that the active tab is equal to the target of the event. 
+      activeTab.classList.add("selected"); //This line shows that the active tab is selected.
+      let tabs = document.querySelectorAll("div"); //This line shows that the tabs are equal to the divided tabs.
+      currentTab.classList.toggle("hidden"); //This line hides the tab that is previously selected by the user.
+      switch(activeTab.textContent) //This line manages the display of the tabs of the multiple tabbed sections.
+      {      
+        case "A":
+        currentTab = tabs[0]; //This line and the previous line define the first tab.
+        break;
+        case "B":
+        currentTab = tabs[1]; //This line and the previous line define the second tab.
+        break;
+        case "C":
+        currentTab = tabs[2]; //This line and the previous line define the third tab.
+        break;
+      }
+      currentTab.classList.toggle("hidden"); //This line displays the list of the currently selected tab.
+    }
+  </script> 
+</html>
+</body>

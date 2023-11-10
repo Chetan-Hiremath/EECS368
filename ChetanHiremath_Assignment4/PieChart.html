@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html> 
+  <head>
+    <meta charset= "utf-8">
+  </head> 
+  <title>PieChart.htm</title>
+<canvas width="800" height="800"></canvas>
+<script>
+const results= [
+{name: "Satisfied", count: 927, color: "green"}, 
+{name: "Neutral", count: 463, color: "yellow"},
+{name: "Unsatisfied", count: 510, color: "red"},
+{name: "No comment", count: 102, color: "blue"}
+]; //This line contains the elements of the array for Customer Satisfaction Data Set 1. 
+const results1= [
+{name: "Very happy", count: 63, color: "silver"},
+{name: "Happy", count: 104, color: "maroon"},
+{name: "Neutral", count: 87, color: "purple"},
+{name: "Unhappy", count: 51, color: "cyan"},
+{name: "Very unhappy", count: 26, color: "black"},
+{name: "No comment", count: 18, color: "pink"}
+]; //This line contains the elements of the array for Customer Satisfaction Data Set 2. 
+let cx = document.querySelector("canvas").getContext("2d"); //This line creates a context of Data Set 1. 
+  let total = results.reduce(function(sum, choice) //This line defines the variable for the total value.
+  {
+    return sum + choice.count; //This line returns the sum of the value and the choice's value.
+  } , 0); //This line runs and ends the function for the pie chart. 
+  let currentAngle = -0.5 * Math.PI; //This line defines the variable for the current angle.
+  let centerX = 200, centerY = 150; //This line defines the coordinates of the pie chart of Data Set 1.
+  results.forEach(function(result) //This line defines the function for every result.
+  {
+    let sliceAngle = (result.count / total) * 2 * Math.PI; //This line defines the variable for the slice angle.
+    cx.beginPath(); //This line will begin to draw the pie chart.
+    cx.arc(centerX, centerY, 100, currentAngle, currentAngle + sliceAngle); //This line will draw the arc and the circle by the arc's center coordinates, the arc's radius, the start angle, and the end angle.
+    let middleAngle = currentAngle + 0.5 * sliceAngle; //This line defines the variable for the middle angle.
+    let textX = Math.cos(middleAngle) * 120 + centerX; //This line defines the variable for the text that is controlled by the x-axis.
+    let textY = Math.sin(middleAngle) * 120 + centerY; //This line defines the variable for the text that is controlled by the y-axis.
+    cx.textBaseLine = "middle"; //This line will set the text to the middle position.
+    if (Math.cos(middleAngle) > 0) //This line shows the if statement that works if the middle angle that is converted by cosine is greater than 0.
+    {
+      cx.textAlign = "left"; //This line will set the text to the left position if the condition is true.
+    } 
+    else //This line shows the else statement that works if the middle angle that is converted by cosine is less than 0.
+    {
+      cx.textAlign = "right"; //This line will set the text to the right position if the condition is true.
+    }
+    cx.font = "15px sans-serif"; //This line manages the font of the text.
+    cx.fillStyle = "black"; //This line manages the color of the text.
+    cx.fillText(result.name, textX, textY); //This line prints the text.
+    currentAngle += sliceAngle; //This line shows that the new current angle is equal to the sum of the original current angle and the slice angle.
+    cx.lineTo(centerX, centerY); //This line draws the pie chart from the original point to the center point.
+    cx.fillStyle = result.color; //This line manages the color of the pie chart.
+    cx.fill(); //This line fills the colors of the respective slices of pie chart.
+  });
+  let cx1 = document.querySelector("canvas").getContext("2d"); //This line creates a context of Data Set 2. 
+  let total1 = results1.reduce(function(sum, choice) //This line defines the variable for the total value.
+  {
+    return sum + choice.count; //This line returns the sum of the value and the choice's value.
+  } , 0); //This line runs and ends the function for the pie chart. 
+  let currentAngle1 = -0.5 * Math.PI; //This line defines the variable for the current angle.
+  let centerX1 = 600, centerY1 = 150; //This line defines the coordinates of the pie chart of Data Set 2.
+  results1.forEach(function(result1) //This line defines the function for every result.
+  {
+    let sliceAngle1 = (result1.count / total1) * 2 * Math.PI; //This line defines the variable for the slice angle.
+    cx1.beginPath(); //This line will begin to draw the pie chart.
+    cx1.arc(centerX1, centerY1, 100, currentAngle1, currentAngle1 + sliceAngle1); //This line will draw the arc and the circle by the arc's center coordinates, the arc's radius, the start angle, and the end angle.
+    let middleAngle1 = currentAngle1 + 0.5 * sliceAngle1; //This line defines the variable for the middle angle.
+    let textX1 = Math.cos(middleAngle1) * 120 + centerX1; //This line defines the variable for the text that is controlled by the x-axis.
+    let textY1 = Math.sin(middleAngle1) * 120 + centerY1; //This line defines the variable for the text that is controlled by the y-axis.
+    cx1.textBaseLine = "middle"; //This line will set the text to the middle position.
+    if (Math.cos(middleAngle1) > 0) //This line shows the if statement that works if the middle angle that is converted by cosine is greater than 0.
+    {
+      cx1.textAlign = "left"; //This line will set the text to the left position if the condition is true.
+    } 
+    else //This line shows the else statement that works if the middle angle that is converted by cosine is less than 0.
+    {
+      cx1.textAlign = "right"; //This line will set the text to the right position if the condition is true.
+    }
+    cx1.font = "15px sans-serif"; //This line manages the font of the text.
+    cx1.fillStyle = "black"; //This line manages the color of the text.
+    cx1.fillText(result1.name, textX1, textY1); //This line prints the text.
+    currentAngle1 += sliceAngle1; //This line shows that the new current angle is equal to the sum of the original current angle and the slice angle.
+    cx1.lineTo(centerX1, centerY1); //This line draws the pie chart from the original point to the center point.
+    cx1.fillStyle = result1.color; //This line manages the color of the pie chart.
+    cx1.fill(); //This line fills the colors of the respective slices of pie chart.
+  });
+</script>
+</html>
